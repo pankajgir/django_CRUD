@@ -1,0 +1,87 @@
+{% extends "core/base.html" %}
+{%block title%} {%endblock title%}
+{%block main_contents%}
+<div class="container mt-5">
+
+    <div class="row mb-4">
+        <div class="col-md-12 text-center">
+            <h1 class="display-5 fw-bold text-primary">
+                CURD LIST
+            </h1>
+            <p class="text-muted">
+                Add, Update, Delete and Manage Student Records
+            </p>
+        </div>
+    </div>
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Student Records</h4>
+
+            <a href="{% url "add-student" %}" class="btn btn-light btn-sm">
+                Add Student
+            </a>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>City</th>
+                        <th>Actions</th>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for Studata in studat %}
+
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{Studata.name}}</td>
+                        <td>{{Studata.email}}</td>
+                        <td>{{Studata.course}}k</td>
+                        <td>{{Studata.city}}</td>
+
+                       <td>
+                        <table>
+                        <tr>
+                             <td><form action="{% url 'delete-student' %}" method="POST">
+                            {% csrf_token %}
+
+                            <input type="hidden" name="id" value="{{ Studata.id }}">
+
+                            
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                        </form>
+                         
+                        
+                        <td> 
+                            
+                        <<a href="{% url 'edit-student' Studata.id %}" class="btn btn-warning btn-sm"> Edit</a>
+
+
+                        </td>
+                    </tr>
+                    </table>
+                    {% endfor %}
+
+                    
+                    
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+{%endblock main_contents%}
